@@ -851,16 +851,35 @@ void render(void *data, struct wl_callback *callback, uint32_t time)
 
                 /* Lane */
                 printf("lanes=%d\n", result.lane.lane_cnt);
+                // for (int l = 0; l < result.lane.lane_cnt; l++) {
+                //     AILane *lane = &result.lane.lanes[l];
+                //     if (lane->point_cnt > 0) {
+                //         // printf("  lane[%d] class=%d points=%d"
+                //         //     " first=(%.1f,%.1f) last=(%.1f,%.1f)\n",
+                //         //     lane->lane_idx, lane->lane_class,
+                //         //     lane->point_cnt,
+                //         //     lane->points[0].x, lane->points[0].y,
+                //         //     lane->points[lane->point_cnt-1].x,
+                //         //     lane->points[lane->point_cnt-1].y);
+
+                //     }
+                // }
+
                 for (int l = 0; l < result.lane.lane_cnt; l++) {
-                    AILane *lane = &result.lane.lanes[l];
+                AILane *lane = &result.lane.lanes[l];
+
                     if (lane->point_cnt > 0) {
-                        printf("  lane[%d] class=%d points=%d"
-                            " first=(%.1f,%.1f) last=(%.1f,%.1f)\n",
-                            lane->lane_idx, lane->lane_class,
-                            lane->point_cnt,
-                            lane->points[0].x, lane->points[0].y,
-                            lane->points[lane->point_cnt-1].x,
-                            lane->points[lane->point_cnt-1].y);
+                        printf("  lane[%d] class=%d points=%d\n",
+                            lane->lane_idx,
+                            lane->lane_class,
+                            lane->point_cnt);
+
+                        for (int j = 0; j < lane->point_cnt; j++) {
+                            printf("    [%2d] (%.1f, %.1f)\n",
+                                j,
+                                lane->points[j].x,
+                                lane->points[j].y);
+                        }
                     }
                 }
 
